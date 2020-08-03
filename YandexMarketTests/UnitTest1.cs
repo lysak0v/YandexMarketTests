@@ -30,10 +30,13 @@ namespace YandexMarketTests
         {
             var cityButton = driver.FindElement(_cityButton);
             cityButton.Click();
+            Thread.Sleep(1000);
             var computersButton = driver.FindElement(_computersButton);
             computersButton.Click();
+            Thread.Sleep(1000);
             var laptopsButton = driver.FindElement(_laptopsButton);                     
             laptopsButton.Click();
+            Thread.Sleep(1000);
             var priceFromInput = driver.FindElement(_priceFromInput);
             priceFromInput.SendKeys("25000");
             var priceToInput = driver.FindElement(_priceToInput);
@@ -43,6 +46,7 @@ namespace YandexMarketTests
         [TearDown]
         public void TearDown()
         {
+            driver.Quit();
         }
     }
 }
