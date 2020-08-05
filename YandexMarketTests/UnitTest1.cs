@@ -14,6 +14,9 @@ namespace YandexMarketTests
         private readonly By _cityButton = By.XPath("//span[text()='Да, спасибо']");
         private readonly By _priceFromInput = By.XPath("//input[@name='Цена от']");
         private readonly By _priceToInput = By.XPath("//input[@name='Цена до']");
+        private readonly By _brandShowAllButton = By.XPath("//button[text()='Показать всё']");
+        private readonly By _brandSearchInput = By.XPath("//input[@type='text'and@name='Поле поиска']");
+        private readonly By _brandCheckBox = By.XPath("//span[text()='Lenovo']");
 
 
         [SetUp]
@@ -30,12 +33,21 @@ namespace YandexMarketTests
         {
             var cityButton = driver.FindElement(_cityButton);
             cityButton.Click();
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
             var computersButton = driver.FindElement(_computersButton);
             computersButton.Click();
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
             var laptopsButton = driver.FindElement(_laptopsButton);                     
             laptopsButton.Click();
+            Thread.Sleep(2000);
+            var brandShowAllButton = driver.FindElement(_brandShowAllButton);
+            brandShowAllButton.Click();
+            Thread.Sleep(1000);
+            var brandSearchInput = driver.FindElement(_brandSearchInput);
+            brandSearchInput.SendKeys("Lenovo");
+            Thread.Sleep(1000);
+            var brandCheckBox = driver.FindElement(_brandCheckBox);
+            brandCheckBox.Click();
             Thread.Sleep(1000);
             var priceFromInput = driver.FindElement(_priceFromInput);
             priceFromInput.SendKeys("25000");
