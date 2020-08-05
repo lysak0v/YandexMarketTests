@@ -8,7 +8,7 @@ namespace YandexMarketTests
 {
     public class Tests
     {
-        private IWebDriver driver;
+        private IWebDriver _webDriver;
         private readonly By _computersButton = By.XPath("//span[text()='Компьютеры']");
         private readonly By _laptopsButton = By.XPath("//a[text()='Ноутбуки']");
         private readonly By _cityButton = By.XPath("//span[text()='Да, спасибо']");
@@ -22,43 +22,42 @@ namespace YandexMarketTests
         [SetUp]
         public void Setup()
         {
-            driver = new OpenQA.Selenium.Chrome.ChromeDriver();
-            driver.Manage().Window.Maximize();
-            driver.Navigate().GoToUrl("https://market.yandex.ru/");
-            
+            _webDriver = new OpenQA.Selenium.Chrome.ChromeDriver();
+            _webDriver.Manage().Window.Maximize();
+            _webDriver.Navigate().GoToUrl("https://market.yandex.ru/");
+            WaitUntil.ShoudLocate(_webDriver, "https://market.yandex.ru/");
         }
 
         [Test]
         public void Test1()
         {
-            var cityButton = driver.FindElement(_cityButton);
+            var cityButton = _webDriver.FindElement(_cityButton);
             cityButton.Click();
-            Thread.Sleep(2000);
-            var computersButton = driver.FindElement(_computersButton);
+            WaitUntil.IsVisibleAndClickable(_webDriver,_computersButton);
+            var computersButton = _webDriver.FindElement(_computersButton);
             computersButton.Click();
-            Thread.Sleep(2000);
-            var laptopsButton = driver.FindElement(_laptopsButton);                     
+            WaitUntil.IsVisibleAndClickable(_webDriver,_laptopsButton);
+            var laptopsButton = _webDriver.FindElement(_laptopsButton);                     
             laptopsButton.Click();
-            Thread.Sleep(2000);
-            var brandShowAllButton = driver.FindElement(_brandShowAllButton);
+            WaitUntil.IsVisibleAndClickable(_webDriver,_brandShowAllButton);
+            var brandShowAllButton = _webDriver.FindElement(_brandShowAllButton);
             brandShowAllButton.Click();
-            Thread.Sleep(1000);
-            var brandSearchInput = driver.FindElement(_brandSearchInput);
+            WaitUntil.IsVisibleAndClickable(_webDriver,_brandSearchInput);
+            var brandSearchInput = _webDriver.FindElement(_brandSearchInput);
             brandSearchInput.SendKeys("Lenovo");
-            Thread.Sleep(1000);
-            var brandCheckBox = driver.FindElement(_brandCheckBox);
+            WaitUntil.IsVisibleAndClickable(_webDriver,_brandCheckBox);
+            var brandCheckBox = _webDriver.FindElement(_brandCheckBox);
             brandCheckBox.Click();
-            Thread.Sleep(1000);
-            var priceFromInput = driver.FindElement(_priceFromInput);
+            var priceFromInput = _webDriver.FindElement(_priceFromInput);
             priceFromInput.SendKeys("25000");
-            var priceToInput = driver.FindElement(_priceToInput);
+            var priceToInput = _webDriver.FindElement(_priceToInput);
             priceToInput.SendKeys("30000");
         }
 
         [TearDown]
         public void TearDown()
         {
-            driver.Quit();
+            _webDriver.Quit();
         }
     }
 }
