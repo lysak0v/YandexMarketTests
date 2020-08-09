@@ -8,15 +8,15 @@ namespace YandexMarketTests
 {
     public static class WaitUntil
     {
-        public static void ShoudLocate(IWebDriver webDriver, string location)
+        public static void AtPage(IWebDriver driver, string url)
         {
             try
             {
-                new WebDriverWait(webDriver, TimeSpan.FromSeconds(10)).Until(ExpectedConditions.UrlContains(location));
+                new WebDriverWait(driver, TimeSpan.FromSeconds(20)).Until(ExpectedConditions.UrlContains(url));
             }
             catch (WebDriverException ex)
             {
-                throw new NotFoundException($"Cannot find out that app in specific location {location}", ex);
+                throw new NotFoundException($"Cannot find out that app in specific location {url}", ex);
             }
         }
 
@@ -31,6 +31,12 @@ namespace YandexMarketTests
                 ExpectedConditions.ElementIsVisible(locator));
             new WebDriverWait(webDriver, TimeSpan.FromSeconds(seconds)).Until(
                 ExpectedConditions.ElementToBeClickable(locator));
+        }
+        
+        public static void IsVisible(IWebDriver webDriver, By locator, int seconds = 20)
+        {
+            new WebDriverWait(webDriver, TimeSpan.FromSeconds(seconds)).Until(
+                ExpectedConditions.ElementIsVisible(locator));
         }
     }
 }
