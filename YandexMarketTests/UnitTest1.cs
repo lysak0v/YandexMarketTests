@@ -15,9 +15,12 @@ namespace YandexMarketTests
         [SetUp]
         public void Setup()
         {
+            //Положить .env файл в корень директории сборки
+            DotNetEnv.Env.Load();
+            //Либо указать полный путь
+            //DotNetEnv.Env.Load(@"C:\Users\user9\source\repos\YandexMarketTests\YandexMarketTests\.env");
             _driver = new OpenQA.Selenium.Chrome.ChromeDriver();
             _driver.Manage().Window.Maximize();
-            
         }
 
         [Test]
@@ -25,9 +28,9 @@ namespace YandexMarketTests
         {
             var laptopsPage = new LaptopsPage(_driver);
             laptopsPage.Open();
-            laptopsPage.FilterBrand("Lenovo");
-            laptopsPage.FilterPriceFrom(25000);
-            laptopsPage.FilterPriceTo(30000);
+            laptopsPage.FilterBrand(Environment.GetEnvironmentVariable("Brand"));
+            laptopsPage.FilterPriceFrom(Int32.Parse(Environment.GetEnvironmentVariable("PriceFrom")));
+            laptopsPage.FilterPriceTo(Int32.Parse(Environment.GetEnvironmentVariable("PriceTo")));
             laptopsPage.ValidateResults();
         }
 
